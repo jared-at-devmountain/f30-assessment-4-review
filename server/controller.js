@@ -47,5 +47,16 @@ module.exports = {
         database.push(newPerson)
         console.log(database)
         res.status(200).send(database)
+    },
+    deletePerson: (req, res) => {
+        let id = +req.params.id
+
+        for (let i = 0; i < database.length; i++) {
+            if (database[i].id === id) {
+                database.splice(i, 1)
+            }
+        }
+
+        res.status(200).send(database)
     }
 }

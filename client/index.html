@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="index.css"/>
     <title>Back End Assessment</title>
   </head>
   <body class="container">
@@ -11,7 +12,12 @@
       <input id="name-input" placeholder="name"/>
       <label for="p-level-input">Power Level</label>
       <input id="p-level-input" placeholder="power level"/>
-      <input type="submit"/>
+      <input type="submit" value="Create Person"/>
+    </form>
+    <form id="delete-form">
+      <label for="delete-id-input">ID to be deleted</label>
+      <input id="delete-id-input" placeholder="name"/>
+      <input type="submit" value="Delete"/>
     </form>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -3,6 +3,8 @@ const fortuneBtn = document.getElementById("fortuneButton")
 const creationForm = document.getElementById("creation-form")
 const nameInput = document.getElementById("name-input")
 const powerLevelInput = document.getElementById("p-level-input")
+const deletionForm = document.getElementById("delete-form")
+const deleteIdInput = document.getElementById("delete-id-input")
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -43,11 +45,22 @@ const createPerson = (event) => {
     .catch((err) => {
         console.log(err)
     })
+}
 
+function deletePerson(event) {
+    event.preventDefault()
 
+    deleteId = deleteIdInput.value
 
+    axios.delete("http://localhost:4000/api/delete/" + deleteId)
+    .then((response) => {
+        let db = response.data
+        console.log(db)
+    })
+    .catch(() => {})
 }
 
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
 creationForm.addEventListener('submit', createPerson)
+deletionForm.addEventListener('submit', deletePerson)
