@@ -40,7 +40,7 @@ module.exports = {
 
         let newPerson = {
             name: name,
-            powerLevel,
+            powerLevel: +powerLevel,
             id: highestId,
         }
 
@@ -54,6 +54,18 @@ module.exports = {
         for (let i = 0; i < database.length; i++) {
             if (database[i].id === id) {
                 database.splice(i, 1)
+            }
+        }
+
+        res.status(200).send(database)
+    },
+    incrementPowerLevel: (req, res) => {
+        let {id} = req.query
+        id = +id
+
+        for (let i = 0; i < database.length; i++) {
+            if (database[i].id === id) {
+                database[i].powerLevel += 100
             }
         }
 

@@ -5,6 +5,8 @@ const nameInput = document.getElementById("name-input")
 const powerLevelInput = document.getElementById("p-level-input")
 const deletionForm = document.getElementById("delete-form")
 const deleteIdInput = document.getElementById("delete-id-input")
+const incForm = document.getElementById("inc-form")
+const incIdInput = document.getElementById("inc-id-input")
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -60,7 +62,21 @@ function deletePerson(event) {
     .catch(() => {})
 }
 
+function incPowerLevel(event) {
+    event.preventDefault()
+
+    incId = incIdInput.value
+
+    axios.put("http://localhost:4000/api/increment/?id=" + incId)
+    .then((response) => {
+        let db = response.data
+        console.log(db)
+    })
+    .catch(() => {})
+}
+
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
 creationForm.addEventListener('submit', createPerson)
 deletionForm.addEventListener('submit', deletePerson)
+incForm.addEventListener('submit', incPowerLevel)
