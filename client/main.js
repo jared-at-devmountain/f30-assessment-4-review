@@ -68,7 +68,11 @@ function deletePerson(event) {
             displayUserOnDOM(db[i])
         }
     })
-    .catch(() => {})
+    .catch((err) => {
+        console.log(err)
+    })
+
+    deleteIdInput.value = ''
 }
 
 function incPowerLevel(event) {
@@ -85,7 +89,9 @@ function incPowerLevel(event) {
             displayUserOnDOM(db[i])
         }
     })
-    .catch(() => {})
+    .catch((err) => {
+        console.log(err)
+    })
 }
 
 function displayUserOnDOM(userObj) {
