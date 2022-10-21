@@ -1,5 +1,8 @@
 const complimentBtn = document.getElementById("complimentButton")
 const fortuneBtn = document.getElementById("fortuneButton")
+const creationForm = document.getElementById("creation-form")
+const nameInput = document.getElementById("name-input")
+const powerLevelInput = document.getElementById("p-level-input")
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -21,5 +24,30 @@ const getFortune = () => {
     })
 }
 
+const createPerson = (event) => {
+    event.preventDefault()
+
+    const maBod = {
+        name: nameInput.value,
+        powerLevel: powerLevelInput.value,
+    }
+
+    nameInput.value = ''
+    powerLevelInput.value = ''
+
+    axios.post("http://localhost:4000/api/create/", maBod)
+    .then((response) => {
+        let db = response.data
+        console.log(db)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+
+
+
+}
+
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
+creationForm.addEventListener('submit', createPerson)

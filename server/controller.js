@@ -1,3 +1,5 @@
+const database = []
+
 module.exports = {
 
     getCompliment: (req, res) => {
@@ -22,5 +24,28 @@ module.exports = {
         let randomFortune = fortunes[randomIndex]
 
         res.status(200).send(randomFortune)
+    },
+    createPerson: (req, res) => {
+        const name = req.body.name
+        const powerLevel = req.body.powerLevel
+
+        //find next available id
+        let highestId = 0
+        for (let i = 0; i < database.length; i++) {
+            if (database[i].id > highestId) {
+                highestId = database[i].id
+            }
+        }
+        highestId++
+
+        let newPerson = {
+            name: name,
+            powerLevel,
+            id: highestId,
+        }
+
+        database.push(newPerson)
+        console.log(database)
+        res.status(200).send(database)
     }
 }
