@@ -1,0 +1,9 @@
+form {
+    margin-top: 20px;
+    border: pink solid 3px;
+    max-width: 200px;
+}
+
+input {
+    display: block;
+}
