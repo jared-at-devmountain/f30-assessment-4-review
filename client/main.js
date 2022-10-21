@@ -7,6 +7,7 @@ const deletionForm = document.getElementById("delete-form")
 const deleteIdInput = document.getElementById("delete-id-input")
 const incForm = document.getElementById("inc-form")
 const incIdInput = document.getElementById("inc-id-input")
+const resultsSection = document.getElementById("results-section")
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -31,6 +32,8 @@ const getFortune = () => {
 const createPerson = (event) => {
     event.preventDefault()
 
+    eraseResultsSection()
+
     const maBod = {
         name: nameInput.value,
         powerLevel: powerLevelInput.value,
@@ -42,7 +45,9 @@ const createPerson = (event) => {
     axios.post("http://localhost:4000/api/create/", maBod)
     .then((response) => {
         let db = response.data
-        console.log(db)
+        for (let i = 0; i < db.length; i++) {
+            displayUserOnDOM(db[i])
+        }
     })
     .catch((err) => {
         console.log(err)
@@ -52,12 +57,16 @@ const createPerson = (event) => {
 function deletePerson(event) {
     event.preventDefault()
 
+    eraseResultsSection()
+
     deleteId = deleteIdInput.value
 
     axios.delete("http://localhost:4000/api/delete/" + deleteId)
     .then((response) => {
         let db = response.data
-        console.log(db)
+        for (let i = 0; i < db.length; i++) {
+            displayUserOnDOM(db[i])
+        }
     })
     .catch(() => {})
 }
@@ -65,14 +74,41 @@ function deletePerson(event) {
 function incPowerLevel(event) {
     event.preventDefault()
 
+    eraseResultsSection()
+
     incId = incIdInput.value
 
     axios.put("http://localhost:4000/api/increment/?id=" + incId)
     .then((response) => {
         let db = response.data
-        console.log(db)
+        for (let i = 0; i < db.length; i++) {
+            displayUserOnDOM(db[i])
+        }
     })
     .catch(() => {})
+}
+
+function displayUserOnDOM(userObj) {
+    let container = document.createElement('div')
+    let nameEl = document.createElement('p')
+    let powerLevelEl = document.createElement('p')
+    let idEl = document.createElement('p')
+
+    nameEl.innerHTML = 'Name: ' + userObj.name
+    powerLevelEl.innerHTML = 'Power Level: ' + userObj.powerLevel
+    idEl.innerHTML = 'ID: ' + userObj.id
+
+    container.appendChild(nameEl)
+    container.appendChild(powerLevelEl)
+    container.appendChild(idEl)
+
+    container.classList.add('person-container')
+
+    resultsSection.appendChild(container)
+}
+
+function eraseResultsSection() {
+    resultsSection.innerHTML = ''
 }
 
 complimentBtn.addEventListener('click', getCompliment)
